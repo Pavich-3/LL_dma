@@ -7,6 +7,8 @@ extern "C" {
 
 #include "main.h"
 
+void ADC_Init(void);
+
 #ifdef __cplusplus
 }
 #endif

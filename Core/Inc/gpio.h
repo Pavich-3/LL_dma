@@ -7,6 +7,8 @@ extern "C" {
 
 #include "main.h"
 
+void GPIO_Init(void);
+
 #ifdef __cplusplus
 }
 #endif

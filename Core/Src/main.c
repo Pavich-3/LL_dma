@@ -1,4 +1,10 @@
 #include "main.h"
+#include "gpio.h"
+#include "adc.h"
+#include "dma.h"
+
+volatile uint8_t adc_data_ready = 0;
+volatile uint16_t adc_buffer[2] = {0, 0};
 
 void SystemClock_Config(void);
 
@@ -10,9 +16,18 @@ int main(void)
   NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
   NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),15, 0));
 
+  GPIO_Init();
+  ADC_Init();
+  DMA_Init((uint32_t)adc_buffer, 2);
+
   while (1)
   {
+	  if (adc_data_ready)
+	  {
+		  adc_data_ready = 0;
 
+          printf("ADC data: Channel 0 = %u, Channel 1 = %u\r\n", adc_buffer[0], adc_buffer[1]);
+	  }
   }
 }
 
