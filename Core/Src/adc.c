@@ -20,11 +20,26 @@ void ADC_Init(void)
 	};
 	LL_ADC_REG_Init(ADC1, &REG_InitStruct);
 
+	LL_ADC_INJ_InitTypeDef INJ_InitStruct = {
+			.SequencerDiscont = LL_ADC_INJ_SEQ_DISCONT_DISABLE,
+			.SequencerLength = LL_ADC_INJ_SEQ_SCAN_DISABLE,
+			.TrigAuto = LL_ADC_INJ_TRIG_INDEPENDENT,
+			.TriggerSource = LL_ADC_INJ_TRIG_EXT_TIM1_TRGO
+	};
+	LL_ADC_INJ_Init(ADC1, &INJ_InitStruct);
+	NVIC_SetPriority(ADC_IRQn, 0);
+	NVIC_EnableIRQ(ADC_IRQn);
+
 	LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_0, LL_ADC_SAMPLINGTIME_112CYCLES);
 	LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_1, LL_ADC_CHANNEL_0);
 
 	LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_1, LL_ADC_SAMPLINGTIME_112CYCLES);
 	LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_2, LL_ADC_CHANNEL_1);
 
+	LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_3, LL_ADC_SAMPLINGTIME_112CYCLES);
+	LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3);
+
 	LL_ADC_Enable(ADC1);
+
+	LL_ADC_EnableIT_JEOS(ADC1);
 }

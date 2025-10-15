@@ -6,7 +6,7 @@ void GPIO_Init(void)
 
 	LL_GPIO_InitTypeDef GPIO_InitStruct = {
 			.Mode = LL_GPIO_MODE_ANALOG,
-			.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1,
+			.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2,
 			.Pull = LL_GPIO_PULL_NO,
 			.Speed = LL_GPIO_SPEED_FREQ_HIGH
 	};

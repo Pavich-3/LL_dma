@@ -1,9 +1,16 @@
 #MicroXplorer Configuration settings - do not modify
 ADC1.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_0
-ADC1.IPParameters=Rank-0\#ChannelRegularConversion,master,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag
+ADC1.Channel-5\#ChannelInjectedConversion=ADC_CHANNEL_0
+ADC1.ExternalTrigInjecConv=ADC_EXTERNALTRIGINJECCONV_T1_TRGO
+ADC1.IPParameters=Rank-0\#ChannelRegularConversion,master,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag,InjNumberOfConversion,NbrOfConversion,InjectedRank-5\#ChannelInjectedConversion,Channel-5\#ChannelInjectedConversion,SamplingTime-5\#ChannelInjectedConversion,InjectedOffset-5\#ChannelInjectedConversion,ExternalTrigInjecConv
+ADC1.InjNumberOfConversion=1
+ADC1.InjectedOffset-5\#ChannelInjectedConversion=0
+ADC1.InjectedRank-5\#ChannelInjectedConversion=1
+ADC1.NbrOfConversion=1
 ADC1.NbrOfConversionFlag=1
 ADC1.Rank-0\#ChannelRegularConversion=1
 ADC1.SamplingTime-0\#ChannelRegularConversion=ADC_SAMPLETIME_3CYCLES
+ADC1.SamplingTime-5\#ChannelInjectedConversion=ADC_SAMPLETIME_3CYCLES
 ADC1.master=1
 CAD.formats=
 CAD.pinconfig=

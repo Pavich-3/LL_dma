@@ -2,6 +2,8 @@
 #include "stm32f4xx_it.h"
 
 extern volatile uint8_t adc_data_ready;
+extern volatile uint16_t injected_adc_buffer;
+extern volatile uint8_t injected_adc_data_ready;
 
 void NMI_Handler(void)
 {
@@ -70,5 +72,16 @@ void DMA2_Stream0_IRQHandler(void)
 		LL_DMA_ClearFlag_TC0(DMA2);
 
 		adc_data_ready = 1;
+	}
+}
+
+void ADC_IRQHandler(void)
+{
+	if (LL_ADC_IsActiveFlag_JEOS(ADC1))
+	{
+		LL_ADC_ClearFlag_JEOS(ADC1);
+
+		injected_adc_buffer = LL_ADC_INJ_ReadConversionData12(ADC1, LL_ADC_INJ_RANK_1);
+		injected_adc_data_ready = 1;
 	}
 }

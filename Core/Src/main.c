@@ -2,9 +2,13 @@
 #include "gpio.h"
 #include "adc.h"
 #include "dma.h"
+#include "timer.h"
 
 volatile uint8_t adc_data_ready = 0;
 volatile uint16_t adc_buffer[2] = {0, 0};
+volatile uint16_t injected_adc_buffer = 0;
+volatile uint8_t injected_adc_data_ready = 0;
+LL_TIM_InitTypeDef TIM_InitStruct = {0};
 
 void SystemClock_Config(void);
 
@@ -19,6 +23,7 @@ int main(void)
   GPIO_Init();
   ADC_Init();
   DMA_Init((uint32_t)adc_buffer, 2);
+  TIMER_Init(&TIM_InitStruct);
 
   while (1)
   {
@@ -27,6 +32,12 @@ int main(void)
 		  adc_data_ready = 0;
 
           printf("ADC data: Channel 0 = %u, Channel 1 = %u\r\n", adc_buffer[0], adc_buffer[1]);
+	  }
+	  if (injected_adc_data_ready)
+	  {
+		  injected_adc_data_ready = 0;
+		  printf("Injected ADC data: Channel 3 = %u\r\n", injected_adc_buffer);
+
 	  }
   }
 }
